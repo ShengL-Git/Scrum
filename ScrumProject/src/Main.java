@@ -1,11 +1,19 @@
 
+import dao.CustomerDao;
+import dao.ProductDao;
+import dao.TicketDao;
 import models.Product;
 import models.Customer;
+import models.Ticket;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+    public static CustomerDao customerDao = new CustomerDao();
+    public static ProductDao productDao = new ProductDao();
+    public static TicketDao ticketDao = new TicketDao();
 
     public static UserManager userManager = new UserManager();
     public static TicketManager ticket = new TicketManager();
@@ -232,42 +240,56 @@ public class Main {
         String dni = scanner.next();
 
         Customer customer = new Customer(firstName, lastName, dni);
-        userManager.addUser(customer);
+        //userManager.addUser(customer);
+        customerDao.create(customer);
     }
     public static void removeUserUI() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Posa el DNI de l'usuari: ");
-        String dni = scanner.next();
+        //System.out.print("Posa el DNI de l'usuari: ");
+        //String dni = scanner.next();
+
+        System.out.println("Posa la ID de l'usuari");
+        int id = scanner.nextInt();
 
         for (Customer customer : userManager.userList()) {
-            if (customer.getDni().equals(dni)) {
-                userManager.removeUser(customer);
-            }
+            //if (customer.getDni().equals(dni)) {
+            //    userManager.removeUser(customer);
+            //}
+            customerDao.delete(id);
         }
     }
     public static void modifyUserUI() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Posa el DNI de l'usuari: ");
         String dni = scanner.next();
-        System.out.print("Posa el nou nom d'usuari: ");
-        String newFirstName = scanner.next();
-        System.out.print("Posa el nou cognom d'usuari: ");
-        String newLastName = scanner.next();
+        //out.print("Posa el nou nom d'usuari: ");
+        //String newFirstName = scanner.next();
+        //System.out.print("Posa el nou cognom d'usuari: ");
+        //String newLastName = scanner.next();
+
+        System.out.print("Posa la ID de l'usuari: ");
+        int id = scanner.nextInt();
 
         for (Customer customer : userManager.userList()) {
             if (customer.getDni().equals(dni)) {
-                userManager.modifyUser(customer, newFirstName, newLastName);
+                //userManager.modifyUser(customer, newFirstName, newLastName);
+                customerDao.modify(id, customer);
             }
         }
     }
     public static void searchUserUI() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Posa el DNI de l'usuari: ");
-        String dni = scanner.next();
+        //System.out.print("Posa el DNI de l'usuari: ");
+        //String dni = scanner.next();
 
-        System.out.println(userManager.searchUser(dni));
+        System.out.print("Posa la ID de l'usuari: ");
+        int id = scanner.nextInt();
+
+        //System.out.println(userManager.searchUser(dni));
+
+        System.out.println(customerDao.read(id));
     }
 
     // UI DE LES FUNCIONS DE PRODUCTES
@@ -298,15 +320,22 @@ public class Main {
                 break;
         }
         Product product = new Product(pName, pPrice, pEstablishment);
-        gestioProducts.addProduct(product);
+        //gestioProducts.addProduct(product);
+
+        productDao.create(product);
     }
     public static void deleteProductUI() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Posa el nom del producte que vols eliminar: ");
-        String nameProduct = scanner.next();
+        //System.out.print("Posa el nom del producte que vols eliminar: ");
+        //String nameProduct = scanner.next();
 
-        gestioProducts.deleteProduct(nameProduct);
+        System.out.println("Posa la ID del producte a eliminar: ");
+        int id = scanner.nextInt();
+
+        //gestioProducts.deleteProduct(nameProduct);
+
+        productDao.delete(id);
     }
     public static void modifyPriceUI() {
         Scanner scanner = new Scanner(System.in);
@@ -321,7 +350,9 @@ public class Main {
     public static void getProductsUI() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(gestioProducts.getProducts());
+        //System.out.println(gestioProducts.getProducts());
+
+        System.out.println(productDao.readAll());
     }
 
     // UI DE LES FUNCIONS DE TICKETS
@@ -336,6 +367,9 @@ public class Main {
         String establishment = scanner.next();
 
         ticket.createTicket(products, totalPrice, establishment);
+
+        Ticket ticket = new Ticket();
+        ticketDao.create(ticket);
     }
     public static void deleteTicketByIdUI() {
         Scanner scanner = new Scanner(System.in);
@@ -343,7 +377,9 @@ public class Main {
         System.out.print("Posa la ID del ticket a eliminar: ");
         int ticketId = scanner.nextInt();
 
-        ticket.deleteTicketById(ticketId);
+        //ticket.deleteTicketById(ticketId);
+
+        ticketDao.delete(ticketId);
     }
     public static void checkTicketByIdUI() {
         Scanner scanner = new Scanner(System.in);
@@ -351,12 +387,16 @@ public class Main {
         System.out.print("Posa la ID del ticket a mostrar: ");
         int id = scanner.nextInt();
 
-        ticket.checkTicketById(id);
+        //ticket.checkTicketById(id);
+
+        ticketDao.read(id);
     }
     public static void checkAllTicketsUI() {
         System.out.println("Tots els tickets:");
         System.out.println();
 
-        ticket.allTickets();
+        //ticket.allTickets();
+
+        System.out.println(ticketDao.readAll());
     }
 }

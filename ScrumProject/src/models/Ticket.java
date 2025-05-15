@@ -11,6 +11,9 @@ public class Ticket {
         this.totalPrudcts = totalPrudcts;
     }
 
+    public Ticket() {
+    }
+
     public int getTicketId() {
         return ticketId;
     }
