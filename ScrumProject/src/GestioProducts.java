@@ -1,23 +1,23 @@
-import models.Products;
+import models.Product;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GestioProducts {
-    private ArrayList<Products> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
-    public ArrayList<Products> getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
 
-    public void addProduct(Products product) {
+    public void addProduct(Product product) {
         products.add(product);
     }
 
 
     public void deleteProduct(String nameProduct) {
-        for (Products product : products) {
+        for (Product product : products) {
             if (product.getName().equals(nameProduct)) {
                 products.remove(product);
                 break;
@@ -27,7 +27,7 @@ public class GestioProducts {
     }
 
     public void modifyPrice(String nameProduct, float newPrice) {
-        for (Products product : products) {
+        for (Product product : products) {
             if (product.getName().equals(nameProduct)) {
                 product.setPrice(newPrice);
                 return;

@@ -1,6 +1,6 @@
 
-import models.Products;
-import models.User;
+import models.Product;
+import models.Customer;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,35 +12,35 @@ public class Main {
     public static GestioProducts gestioProducts = new GestioProducts();
 
     public static void main(String[] args) {
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
 
-        User user1 = new User("Pepe", "Gomez", "12345678A");
-        User user2 = new User("Juan", "Lopez", "87654321B");
-        User user3 = new User("Maria", "Perez", "11111111C");
+        Customer customer1 = new Customer("Pepe", "Gomez", "12345678A");
+        Customer customer2 = new Customer("Juan", "Lopez", "87654321B");
+        Customer customer3 = new Customer("Maria", "Perez", "11111111C");
 
-        userManager.addUser(user1);
-        userManager.addUser(user2);
-        userManager.addUser(user3);
+        userManager.addUser(customer1);
+        userManager.addUser(customer2);
+        userManager.addUser(customer3);
 
-        Products productLidl1 = new Products("Nueces", 1.2f, "Lidl");
-        Products productLidl2 = new Products("Leche", 1.5f, "Lidl");
-        Products productLidl3 = new Products("1KG Mandarinas", 3.4f, "Lidl");
+        Product productLidl1 = new Product("Nueces", 1.2f, "Lidl");
+        Product productLidl2 = new Product("Leche", 1.5f, "Lidl");
+        Product productLidl3 = new Product("1KG Mandarinas", 3.4f, "Lidl");
 
         gestioProducts.addProduct(productLidl1);
         gestioProducts.addProduct(productLidl2);
         gestioProducts.addProduct(productLidl3);
 
-        Products productMercadona1 = new Products("Helados", 3f, "Mercadona");
-        Products productMercadona2 = new Products("Gofres", 1.7f, "Mercadona");
-        Products productMercadona3 = new Products("Patatas fritas", 2.6f, "Mercadona");
+        Product productMercadona1 = new Product("Helados", 3f, "Mercadona");
+        Product productMercadona2 = new Product("Gofres", 1.7f, "Mercadona");
+        Product productMercadona3 = new Product("Patatas fritas", 2.6f, "Mercadona");
 
         gestioProducts.addProduct(productMercadona1);
         gestioProducts.addProduct(productMercadona2);
         gestioProducts.addProduct(productMercadona3);
 
-        Products productDia1 = new Products("Pechuga de pollo", 5.7f, "Dia");
-        Products productDia2 = new Products("Cacahuetes", 1.2f, "Dia");
-        Products productDia3 = new Products("Cola", 0.7f, "Dia");
+        Product productDia1 = new Product("Pechuga de pollo", 5.7f, "Dia");
+        Product productDia2 = new Product("Cacahuetes", 1.2f, "Dia");
+        Product productDia3 = new Product("Cola", 0.7f, "Dia");
 
         gestioProducts.addProduct(productDia1);
         gestioProducts.addProduct(productDia2);
@@ -231,8 +231,8 @@ public class Main {
         System.out.print("Posa el teu dni: ");
         String dni = scanner.next();
 
-        User user = new User(firstName, lastName, dni);
-        userManager.addUser(user);
+        Customer customer = new Customer(firstName, lastName, dni);
+        userManager.addUser(customer);
     }
     public static void removeUserUI() {
         Scanner scanner = new Scanner(System.in);
@@ -240,9 +240,9 @@ public class Main {
         System.out.print("Posa el DNI de l'usuari: ");
         String dni = scanner.next();
 
-        for (User user : userManager.userList()) {
-            if (user.getDni().equals(dni)) {
-                userManager.removeUser(user);
+        for (Customer customer : userManager.userList()) {
+            if (customer.getDni().equals(dni)) {
+                userManager.removeUser(customer);
             }
         }
     }
@@ -255,9 +255,9 @@ public class Main {
         System.out.print("Posa el nou cognom d'usuari: ");
         String newLastName = scanner.next();
 
-        for (User user : userManager.userList()) {
-            if (user.getDni().equals(dni)) {
-                userManager.modifyUser(user, newFirstName, newLastName);
+        for (Customer customer : userManager.userList()) {
+            if (customer.getDni().equals(dni)) {
+                userManager.modifyUser(customer, newFirstName, newLastName);
             }
         }
     }
@@ -297,7 +297,7 @@ public class Main {
                 System.out.println("Opcio no trobada");
                 break;
         }
-        Products product = new Products(pName, pPrice, pEstablishment);
+        Product product = new Product(pName, pPrice, pEstablishment);
         gestioProducts.addProduct(product);
     }
     public static void deleteProductUI() {
@@ -329,7 +329,7 @@ public class Main {
     public static void addTicketUI() {
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Products> products = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<>();
         System.out.println("(TEMPORAL) Añade el precio total de la compra");
         int totalPrice = scanner.nextInt();
         System.out.println("En que establecimiento quieres comprar?");

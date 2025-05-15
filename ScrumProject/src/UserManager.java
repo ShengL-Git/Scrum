@@ -1,4 +1,4 @@
-import models.User;
+import models.Customer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,32 +6,32 @@ import java.util.List;
 
 
 public class UserManager {
-    private final HashMap<String, User> userHashMap;
+    private final HashMap<String, Customer> userHashMap;
 
     public UserManager() {
         userHashMap = new HashMap<>();
     }
 
-    public boolean addUser(User user) {
-        return userHashMap.putIfAbsent(user.getDni(), user) == null;
+    public boolean addUser(Customer customer) {
+        return userHashMap.putIfAbsent(customer.getDni(), customer) == null;
     }
 
-    public boolean removeUser(User user) {
-        return userHashMap.remove(user.getDni(), user);
+    public boolean removeUser(Customer customer) {
+        return userHashMap.remove(customer.getDni(), customer);
     }
 
-    public boolean modifyUser(User user, String firstName, String lastName) {
-        if (!userHashMap.containsValue(user)) return false;
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+    public boolean modifyUser(Customer customer, String firstName, String lastName) {
+        if (!userHashMap.containsValue(customer)) return false;
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
         return true;
     }
 
-    public User searchUser(String dni) {
+    public Customer searchUser(String dni) {
         return userHashMap.get(dni);
     }
 
-    public List<User> userList() {
+    public List<Customer> userList() {
         return new ArrayList<>(userHashMap.values());
     }
 

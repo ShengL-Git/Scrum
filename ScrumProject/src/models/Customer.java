@@ -3,11 +3,11 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class User {
+public class Customer {
     private String firstName, lastName, dni;
     private Set<Object> tickets;
 
-    public User(String firstName, String lastName, String dni) {
+    public Customer(String firstName, String lastName, String dni) {
         this.firstName = firstName;
         this.lastName = lastName;
 /*

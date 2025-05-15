@@ -1,4 +1,4 @@
-import models.Products;
+import models.Product;
 import models.Ticket;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class TicketManager {
         }
     }
 
-    public void createTicket(ArrayList<Products> totalProducts, int totalPrice, String establishment) {
+    public void createTicket(ArrayList<Product> totalProducts, int totalPrice, String establishment) {
         Ticket ticket = new Ticket(tickets.size()+1, totalProducts);
         tickets.add(ticket);
     }

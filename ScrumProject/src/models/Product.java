@@ -1,12 +1,12 @@
 package models;
 
 
-public class Products {
+public class Product {
     String nameProduct;
     float price;
     String establishment;
 
-    public Products(String nameProduct, float price, String establishment) {
+    public Product(String nameProduct, float price, String establishment) {
         this.establishment = establishment;
         this.nameProduct = nameProduct;
         this.price = price;

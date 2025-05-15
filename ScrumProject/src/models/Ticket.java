@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Ticket {
     private int ticketId;
-    private ArrayList<Products> totalPrudcts;
+    private ArrayList<Product> totalPrudcts;
 
-    public Ticket(int ticketId, ArrayList<Products> totalPrudcts) {
+    public Ticket(int ticketId, ArrayList<Product> totalPrudcts) {
         this.ticketId = ticketId;
         this.totalPrudcts = totalPrudcts;
     }
@@ -19,11 +19,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public ArrayList<Products> getTotalPrudcts() {
+    public ArrayList<Product> getTotalPrudcts() {
         return totalPrudcts;
     }
 
-    public void setTotalPrudcts(ArrayList<Products> totalPrudcts) {
+    public void setTotalPrudcts(ArrayList<Product> totalPrudcts) {
         this.totalPrudcts = totalPrudcts;
     }
 
