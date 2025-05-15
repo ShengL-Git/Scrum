@@ -1,3 +1,5 @@
+package models;
+
 import java.util.ArrayList;
 
 public class Ticket {
@@ -27,7 +29,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "models.Ticket{" +
                 "ticketId=" + ticketId +
                 ", totalPrudcts=" + totalPrudcts +
                 '}';

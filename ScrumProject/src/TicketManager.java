@@ -1,3 +1,6 @@
+import models.Products;
+import models.Ticket;
+
 import java.util.ArrayList;
 
 public class TicketManager {

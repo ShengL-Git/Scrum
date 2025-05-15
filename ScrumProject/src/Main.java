@@ -1,4 +1,7 @@
-import java.lang.reflect.Array;
+
+import models.Products;
+import models.User;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,9 +46,9 @@ public class Main {
         gestioProducts.addProduct(productDia2);
         gestioProducts.addProduct(productDia3);
 
-        //Ticket ticket1 = new Ticket(1, productsList1);
-        //Ticket ticket2 = new Ticket(1, productsList2);
-        //Ticket ticket3 = new Ticket(1, productsList3);
+        //models.Ticket ticket1 = new models.Ticket(1, productsList1);
+        //models.Ticket ticket2 = new models.Ticket(1, productsList2);
+        //models.Ticket ticket3 = new models.Ticket(1, productsList3);
 
         //ticket.tickets.add(ticket1);
         //ticket.tickets.add(ticket2);

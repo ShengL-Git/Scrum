@@ -1,3 +1,5 @@
+import models.Products;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

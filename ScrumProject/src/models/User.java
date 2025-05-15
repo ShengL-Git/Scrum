@@ -1,3 +1,5 @@
+package models;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +55,7 @@ public class User {
 //    @Override
 //    public boolean equals(Object o) {
 //        if (o == null || getClass() != o.getClass()) return false;
-//        User user = (User) o;
+//        models.User user = (models.User) o;
 //        return Objects.equals(dni, user.dni);
 //    }
 //
@@ -64,7 +66,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "models.User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dni='" + dni + '\'' +

@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package models;
 
 
 public class Products {
     String nameProduct;
-    Float price;
+    float price;
     String establishment;
 
-    public Products(String nameProduct,Float price, String establishment) {
+    public Products(String nameProduct, float price, String establishment) {
         this.establishment = establishment;
         this.nameProduct = nameProduct;
         this.price = price;
@@ -29,17 +28,17 @@ public class Products {
         this.nameProduct = name;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Products{" +
+        return "models.Products{" +
                 "establishment='" + establishment + '\'' +
                 ", name='" + nameProduct + '\'' +
                 ", price=" + price +
