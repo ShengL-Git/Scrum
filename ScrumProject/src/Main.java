@@ -9,16 +9,18 @@ import models.Ticket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
-
+public class Main {}
+/*
     public static CustomerDao customerDao = new CustomerDao();
     public static ProductDao productDao = new ProductDao();
     public static TicketDao ticketDao = new TicketDao();
 
     public static UserManager userManager = new UserManager();
     public static TicketManager ticket = new TicketManager();
-    public static GestioProducts gestioProducts = new GestioProducts();
+    // public static GestioProducts gestioProducts = new GestioProducts();
+    */
 
+/*
     public static void main(String[] args) {
         ArrayList<Customer> customers = new ArrayList<>();
 
@@ -400,3 +402,5 @@ public class Main {
         System.out.println(ticketDao.readAll());
     }
 }
+
+ */

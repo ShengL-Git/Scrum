@@ -2,30 +2,32 @@ package models;
 
 
 public class Product {
+    int productId;
     String nameProduct;
     float price;
-    String establishment;
 
-    public Product(String nameProduct, float price, String establishment) {
-        this.establishment = establishment;
+    public Product(int productId, String nameProduct, float price) {
+        this.productId = productId;
         this.nameProduct = nameProduct;
         this.price = price;
     }
 
-    public String getEstablishment() {
-        return establishment;
+    public Product() {}
+
+    public int getProductId() {
+        return productId;
     }
 
-    public void setEstablishment(String establishment) {
-        this.establishment = establishment;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public String getName() {
+    public String getNameProduct() {
         return nameProduct;
     }
 
-    public void setName(String name) {
-        this.nameProduct = name;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
     public float getPrice() {
@@ -38,9 +40,9 @@ public class Product {
 
     @Override
     public String toString() {
-        return "models.Products{" +
-                "establishment='" + establishment + '\'' +
-                ", name='" + nameProduct + '\'' +
+        return "Product{" +
+                "productId=" + productId +
+                ", nameProduct='" + nameProduct + '\'' +
                 ", price=" + price +
                 '}';
     }

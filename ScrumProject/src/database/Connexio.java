@@ -12,7 +12,7 @@ public class Connexio {
         if (con == null ){
             try {
                 Class.forName("org.sqlite.JDBC");
-                con = DriverManager.getConnection("jdbc:sqlite:Chinook_Sqlite.sqlite");
+                con = DriverManager.getConnection("jdbc:sqlite:scrumDB1.sqlite");
             }
             catch (ClassNotFoundException | SQLException e) {
                 System.err.println( e.getClass().getName() + ": " + e.getMessage() );

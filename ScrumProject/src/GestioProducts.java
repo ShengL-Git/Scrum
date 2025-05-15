@@ -18,7 +18,7 @@ public class GestioProducts {
 
     public void deleteProduct(String nameProduct) {
         for (Product product : products) {
-            if (product.getName().equals(nameProduct)) {
+            if (product.getNameProduct().equals(nameProduct)) {
                 products.remove(product);
                 break;
             }
@@ -28,7 +28,7 @@ public class GestioProducts {
 
     public void modifyPrice(String nameProduct, float newPrice) {
         for (Product product : products) {
-            if (product.getName().equals(nameProduct)) {
+            if (product.getNameProduct().equals(nameProduct)) {
                 product.setPrice(newPrice);
                 return;
             }

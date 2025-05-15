@@ -4,19 +4,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Customer {
+    private int customerId;
     private String firstName, lastName, dni;
-    private Set<Object> tickets;
 
-    public Customer(String firstName, String lastName, String dni) {
+    public Customer(int customerId, String firstName, String lastName, String dni) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
-/*
-        if (dni.matches("\\d{8}[TRWAGMYFPDXBNJZSQVHLCKE]")) {
-            this.dni = dni;
-        }
-*/
         this.dni = dni;
-        tickets = new HashSet<>();
+    }
+
+    public Customer() {}
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {
@@ -43,34 +48,13 @@ public class Customer {
         this.dni = dni;
     }
 
-    public Set<Object> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Object> tickets) {
-        this.tickets = tickets;
-    }
-
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (o == null || getClass() != o.getClass()) return false;
-//        models.User user = (models.User) o;
-//        return Objects.equals(dni, user.dni);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hashCode(dni);
-//    }
-
     @Override
     public String toString() {
-        return "models.User{" +
-                "firstName='" + firstName + '\'' +
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dni='" + dni + '\'' +
-                ", tickets=" + tickets +
                 '}';
     }
 }
