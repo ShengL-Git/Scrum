@@ -1,7 +1,6 @@
 package models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 public class Customer {
     private int customerId;
@@ -56,5 +55,17 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", dni='" + dni + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return customerId == customer.customerId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(customerId);
     }
 }

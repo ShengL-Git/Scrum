@@ -1,12 +1,14 @@
 package models;
 
 
-public class Product {
-    int productId;
-    String nameProduct;
-    float price;
+import java.util.Objects;
 
-    public Product(int productId, String nameProduct, float price) {
+public class Product {
+    private int productId;
+    private String nameProduct;
+    private double price;
+
+    public Product(int productId, String nameProduct, double price) {
         this.productId = productId;
         this.nameProduct = nameProduct;
         this.price = price;
@@ -30,11 +32,11 @@ public class Product {
         this.nameProduct = nameProduct;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -45,5 +47,17 @@ public class Product {
                 ", nameProduct='" + nameProduct + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return productId == product.productId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(productId);
     }
 }

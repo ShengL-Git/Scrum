@@ -1,14 +1,16 @@
 package models;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Ticket {
     private int ticketId;
-    private ArrayList<Product> totalPrudcts;
+    private int productId;
+    private int customerId;
 
-    public Ticket(int ticketId, ArrayList<Product> totalPrudcts) {
+    public Ticket(int ticketId, int productId, int customerId) {
         this.ticketId = ticketId;
-        this.totalPrudcts = totalPrudcts;
+        this.productId = productId;
+        this.customerId = customerId;
     }
 
     public Ticket() {}
@@ -21,19 +23,40 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public ArrayList<Product> getTotalPrudcts() {
-        return totalPrudcts;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setTotalPrudcts(ArrayList<Product> totalPrudcts) {
-        this.totalPrudcts = totalPrudcts;
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
-        return "models.Ticket{" +
-                "ticketId=" + ticketId +
-                ", totalPrudcts=" + totalPrudcts +
-                '}';
+        return "Ticket{" +
+               "ticketId=" + ticketId +
+               ", productId=" + productId +
+               ", customerId=" + customerId +
+               '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return ticketId == ticket.ticketId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(ticketId);
     }
 }

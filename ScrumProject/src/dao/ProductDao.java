@@ -1,7 +1,6 @@
 package dao;
 
 import database.Connexio;
-import models.Customer;
 import models.Product;
 
 import java.sql.Connection;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDao implements Dao<Product>{
-    Connection con = Connexio.getConnection();
+    private Connection con = Connexio.getConnection();
 
     @Override
     public List<Product> readAll() {
@@ -20,9 +19,20 @@ public class ProductDao implements Dao<Product>{
         List<Product> products = new ArrayList<>();
 
         try(PreparedStatement ps = con.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("product_id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+
+                products.add(new Product(id, name, price));
+            }
+
+            rs.close();
 
         } catch (SQLException e) {
-            System.err.println("Error");
+            System.err.println("Error" + e);
         }
 
         return products;
@@ -54,39 +64,58 @@ public class ProductDao implements Dao<Product>{
                 (name, price)
                 VALUES (?, ?)
                 """;
-        int customerId = 0;
         try(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, product.getNameProduct());
-            ps.setFloat(2, product.getPrice());
+            ps.setDouble(2, product.getPrice());
             ps.executeUpdate();
-            customerId = ps.getGeneratedKeys().getInt(1);
+            return ps.getGeneratedKeys().getInt(1);
         } catch (SQLException e) {
             System.err.println("Error" + e);
         }
-        return customerId;
+        return 0;
     }
 
     @Override
     public void modify(int id, Product product) {
+        String query = """
+                UPDATE Product
+                SET
+                name = ?,
+                price = ?
+                WHERE product_id = ?
+                """;
+        try(PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, product.getNameProduct());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, id);
 
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Error" + e);
+        }
     }
 
     @Override
     public void delete(int id) {
-        String query = "DELETE FROM Product WHERE productId = ?";
+        String query = "DELETE FROM Product WHERE product_id = ?";
 
         try(PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, id);
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Error");
+            System.err.println("Error" + e);
         }
     }
 
+    // pruebas (ignorar)
     public static void main(String[] args) {
         Dao dao = new ProductDao();
-        dao.create(new Product(0, "a", 200));
+        System.out.println(dao.readAll());
+        //System.out.println(dao.create(new Product(0, "a", 200)));
         System.out.println(dao.read(1));
+        //dao.modify(1, new Product(0, "test", 10000));
+        //dao.delete(6);
     }
 }
