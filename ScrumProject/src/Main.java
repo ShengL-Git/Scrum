@@ -1,5 +1,6 @@
 
 import dao.CustomerDao;
+import dao.Dao;
 import dao.ProductDao;
 import dao.TicketDao;
 import models.Product;
@@ -7,109 +8,43 @@ import models.Customer;
 import models.Ticket;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {}
-/*
-    public static CustomerDao customerDao = new CustomerDao();
-    public static ProductDao productDao = new ProductDao();
-    public static TicketDao ticketDao = new TicketDao();
-
-    public static UserManager userManager = new UserManager();
-    public static TicketManager ticket = new TicketManager();
-    // public static GestioProducts gestioProducts = new GestioProducts();
-    */
-
-/*
+public class Main {
     public static void main(String[] args) {
-        ArrayList<Customer> customers = new ArrayList<>();
-
-        Customer customer1 = new Customer("Pepe", "Gomez", "12345678A");
-        Customer customer2 = new Customer("Juan", "Lopez", "87654321B");
-        Customer customer3 = new Customer("Maria", "Perez", "11111111C");
-
-        userManager.addUser(customer1);
-        userManager.addUser(customer2);
-        userManager.addUser(customer3);
-
-        Product productLidl1 = new Product("Nueces", 1.2f, "Lidl");
-        Product productLidl2 = new Product("Leche", 1.5f, "Lidl");
-        Product productLidl3 = new Product("1KG Mandarinas", 3.4f, "Lidl");
-
-        gestioProducts.addProduct(productLidl1);
-        gestioProducts.addProduct(productLidl2);
-        gestioProducts.addProduct(productLidl3);
-
-        Product productMercadona1 = new Product("Helados", 3f, "Mercadona");
-        Product productMercadona2 = new Product("Gofres", 1.7f, "Mercadona");
-        Product productMercadona3 = new Product("Patatas fritas", 2.6f, "Mercadona");
-
-        gestioProducts.addProduct(productMercadona1);
-        gestioProducts.addProduct(productMercadona2);
-        gestioProducts.addProduct(productMercadona3);
-
-        Product productDia1 = new Product("Pechuga de pollo", 5.7f, "Dia");
-        Product productDia2 = new Product("Cacahuetes", 1.2f, "Dia");
-        Product productDia3 = new Product("Cola", 0.7f, "Dia");
-
-        gestioProducts.addProduct(productDia1);
-        gestioProducts.addProduct(productDia2);
-        gestioProducts.addProduct(productDia3);
-
-        //models.Ticket ticket1 = new models.Ticket(1, productsList1);
-        //models.Ticket ticket2 = new models.Ticket(1, productsList2);
-        //models.Ticket ticket3 = new models.Ticket(1, productsList3);
-
-        //ticket.tickets.add(ticket1);
-        //ticket.tickets.add(ticket2);
-        //ticket.tickets.add(ticket3);
-
-        menu();
-    }
-
-    public static void menu() {
         Scanner scanner = new Scanner(System.in);
-
-        ArrayList<String> users = new ArrayList<>();
-        ArrayList<String> productos = new ArrayList<>();
-        ArrayList<Double> precios = new ArrayList<>();
-        ArrayList<String> establecimientos = new ArrayList<>();
 
         boolean running = true;
         while (running) {
-            System.out.println("Selecciona una opció");
+            System.out.println("Gestio de productes:");
             System.out.println();
-            System.out.println("1. Gestio usaris");
-            System.out.println("2. Gestio productes");
-            System.out.println("3. Gestio tickets");
-            System.out.println("4. Salir del programa");
-            System.out.println();
+            System.out.println("1. Afegir produte");
+            System.out.println("2. Eliminar producte");
+            System.out.println("3. Modificar preu");
+            System.out.println("4. Veure tots els productes");
+            System.out.println("5. Tornar enrere");
+
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    usersManagement();
+                    addProductUI();
                     break;
                 case 2:
-                    productsManagement();
+                    deleteProductUI();
                     break;
                 case 3:
-                    ticketsManagement();
+                    modifyPriceUI();
                     break;
                 case 4:
-                    addTicketUI();
+                    getProductsUI();
                     break;
                 case 5:
-                    ticket.allTickets();
-                    break;
-                case 6:
-                    checkTicketByIdUI();
-                    break;
-                case 7:
                     running = false;
                     break;
                 default:
-                    System.out.println("Opció no valida");
+                    System.out.println("Opcio no trobada");
                     break;
             }
         }
@@ -154,43 +89,7 @@ public class Main {}
             }
         }
     }
-    public static void productsManagement() {
-        Scanner scanner = new Scanner(System.in);
 
-        boolean running = true;
-        while (running) {
-            System.out.println("Gestio de productes:");
-            System.out.println();
-            System.out.println("1. Afegir produte");
-            System.out.println("2. Eliminar producte");
-            System.out.println("3. Modificar preu");
-            System.out.println("4. Veure tots els productes");
-            System.out.println("5. Tornar enrere");
-
-            int option = scanner.nextInt();
-
-            switch (option) {
-                case 1:
-                    addProductUI();
-                    break;
-                case 2:
-                    deleteProductUI();
-                    break;
-                case 3:
-                    modifyPriceUI();
-                    break;
-                case 4:
-                    getProductsUI();
-                    break;
-                case 5:
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Opcio no trobada");
-                    break;
-            }
-        }
-    }
     public static void ticketsManagement() {
         Scanner scanner = new Scanner(System.in);
 
@@ -229,10 +128,11 @@ public class Main {}
         }
     }
 
-    // UI DE LES FUNCIONS D'USUARIS
+// UI DE LES FUNCIONS D'USUARIS
 
     public static void createUserUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Customer> customerDao = new CustomerDao();
 
         System.out.print("Posa el teu nom: ");
         String firstName = scanner.next();
@@ -241,47 +141,44 @@ public class Main {}
         System.out.print("Posa el teu dni: ");
         String dni = scanner.next();
 
-        Customer customer = new Customer(firstName, lastName, dni);
+        Customer customer = new Customer(0, firstName, lastName, dni);
         //userManager.addUser(customer);
         customerDao.create(customer);
     }
     public static void removeUserUI() {
         Scanner scanner = new Scanner(System.in);
-
+        Dao<Customer> customerDao = new CustomerDao();
         //System.out.print("Posa el DNI de l'usuari: ");
         //String dni = scanner.next();
 
         System.out.println("Posa la ID de l'usuari");
         int id = scanner.nextInt();
 
-        for (Customer customer : userManager.userList()) {
-            //if (customer.getDni().equals(dni)) {
-            //    userManager.removeUser(customer);
-            //}
-            customerDao.delete(id);
-        }
+        customerDao.delete(id);
+
+        //if (customer.getDni().equals(dni)) {
+        //    userManager.removeUser(customer);
+        //}
     }
     public static void modifyUserUI() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Posa el DNI de l'usuari: ");
-        String dni = scanner.next();
-        //out.print("Posa el nou nom d'usuari: ");
-        //String newFirstName = scanner.next();
-        //System.out.print("Posa el nou cognom d'usuari: ");
-        //String newLastName = scanner.next();
+        Dao<Customer> customerDao = new CustomerDao();
 
         System.out.print("Posa la ID de l'usuari: ");
         int id = scanner.nextInt();
+        System.out.println("Posa el nou nom d'usuari: ");
+        String newFirstName = scanner.next();
+        System.out.print("Posa el nou cognom d'usuari: ");
+        String newLastName = scanner.next();
+        System.out.println("Posa el nou DNI");
+        String newDni = scanner.next();
 
-        for (Customer customer : userManager.userList()) {
-            if (customer.getDni().equals(dni)) {
-                //userManager.modifyUser(customer, newFirstName, newLastName);
-                customerDao.modify(id, customer);
-            }
-        }
+        Customer customer = new Customer(id, newFirstName, newLastName, newDni);
+        customerDao.modify(id, customer);
     }
     public static void searchUserUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Customer> customerDao = new CustomerDao();
 
         //System.out.print("Posa el DNI de l'usuari: ");
         //String dni = scanner.next();
@@ -294,40 +191,27 @@ public class Main {}
         System.out.println(customerDao.read(id));
     }
 
-    // UI DE LES FUNCIONS DE PRODUCTES
+// UI DE LES FUNCIONS DE PRODUCTES
 
     public static void addProductUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Product> productDao = new ProductDao();
 
-        System.out.print("Posa el nom del producte a afegir: ");
+        System.out.print("Posa el ID del producte a afegir: ");
+        int id = scanner.nextInt();
+        System.out.println("Posa el nombre del producte");
         String pName = scanner.next();
         System.out.print("Posa el preu del producte: ");
-        float pPrice = scanner.nextFloat();
-        System.out.println("Tria un supermercat (1. Dia 2. Lidl 3. Mercadona): ");
-        int pLocal = scanner.nextInt();
-        String pEstablishment = "";
+        double pPrice = scanner.nextDouble();
 
-        switch (pLocal) {
-            case 1:
-                pEstablishment = "Dia";
-                break;
-            case 2:
-                pEstablishment = "Lidl";
-                break;
-            case 3:
-                pEstablishment = "Mercadona";
-                break;
-            default:
-                System.out.println("Opcio no trobada");
-                break;
-        }
-        Product product = new Product(pName, pPrice, pEstablishment);
+        Product product = new Product(id, pName, pPrice);
         //gestioProducts.addProduct(product);
 
         productDao.create(product);
     }
     public static void deleteProductUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Product> productDao = new ProductDao();
 
         //System.out.print("Posa el nom del producte que vols eliminar: ");
         //String nameProduct = scanner.next();
@@ -341,40 +225,58 @@ public class Main {}
     }
     public static void modifyPriceUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Product> productDao = new ProductDao();
 
-        System.out.print("Posa el nom del producte a modificar el preu: ");
-        String nameProduct = scanner.next();
-        System.out.print("Posa el nou preu que vols que tingui el producte: ");
-        int newPrice = scanner.nextInt();
+        System.out.print("Posa el id del producte a modificar el preu: ");
+        int id = scanner.nextInt();
+        System.out.print("Posa el nou nom que vols que tingui el producte: ");
+        String newName = scanner.next();
+        System.out.println("Posa el nou preu del producte: ");
+        double newPrice = scanner.nextDouble();
 
-        gestioProducts.modifyPrice(nameProduct, newPrice);
+        Product product = new Product(id, newName, newPrice);
+
+        productDao.modify(id, product);
     }
     public static void getProductsUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Product> productDao = new ProductDao();
 
         //System.out.println(gestioProducts.getProducts());
 
         System.out.println(productDao.readAll());
     }
 
-    // UI DE LES FUNCIONS DE TICKETS
+// UI DE LES FUNCIONS DE TICKETS
 
     public static void addTicketUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Ticket> ticketDao = new TicketDao();
+        Dao<Customer> customerDao = new CustomerDao();
 
         ArrayList<Product> products = new ArrayList<>();
         System.out.println("(TEMPORAL) Añade el precio total de la compra");
         int totalPrice = scanner.nextInt();
-        System.out.println("En que establecimiento quieres comprar?");
-        String establishment = scanner.next();
 
-        ticket.createTicket(products, totalPrice, establishment);
+        System.out.println("Introduce ID del cliente: ");
+        int idCustomer = scanner.nextInt();
+        Customer customer = customerDao.read(idCustomer);
 
-        Ticket ticket = new Ticket();
+        if (Objects.isNull(customer)) {
+            System.out.println("El cliente no existe");
+        }
+
+
+        System.out.println("Introduce ID del producto: ");
+        int idProduct = scanner.nextInt();
+
+
+        Ticket ticket = new Ticket(0, idProduct, idCustomer);
         ticketDao.create(ticket);
     }
     public static void deleteTicketByIdUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Ticket> ticketDao = new TicketDao();
 
         System.out.print("Posa la ID del ticket a eliminar: ");
         int ticketId = scanner.nextInt();
@@ -385,6 +287,7 @@ public class Main {}
     }
     public static void checkTicketByIdUI() {
         Scanner scanner = new Scanner(System.in);
+        Dao<Ticket> ticketDao = new TicketDao();
 
         System.out.print("Posa la ID del ticket a mostrar: ");
         int id = scanner.nextInt();
@@ -394,6 +297,7 @@ public class Main {}
         ticketDao.read(id);
     }
     public static void checkAllTicketsUI() {
+        Dao<Ticket> ticketDao = new TicketDao();
         System.out.println("Tots els tickets:");
         System.out.println();
 
@@ -401,6 +305,5 @@ public class Main {}
 
         System.out.println(ticketDao.readAll());
     }
-}
 
- */
+}
