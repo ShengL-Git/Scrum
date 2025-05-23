@@ -17,30 +17,26 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            System.out.println("Gestio de productes:");
+            System.out.println("Menu principal gestio supermercat (tickets):");
             System.out.println();
-            System.out.println("1. Afegir produte");
-            System.out.println("2. Eliminar producte");
-            System.out.println("3. Modificar preu");
-            System.out.println("4. Veure tots els productes");
-            System.out.println("5. Tornar enrere");
+            System.out.println("1. Gestio d'usuaris");
+            System.out.println("2. Gestio de productes");
+            System.out.println("3. Gestio de tickets");
+            System.out.println("4. Sortir");
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    addProductUI();
+                    usersManagement();
                     break;
                 case 2:
-                    deleteProductUI();
+                    productManagement();
                     break;
                 case 3:
-                    modifyPriceUI();
+                    ticketsManagement();
                     break;
                 case 4:
-                    getProductsUI();
-                    break;
-                case 5:
                     running = false;
                     break;
                 default:
@@ -79,6 +75,44 @@ public class Main {
                     break;
                 case 4:
                     searchUserUI();
+                    break;
+                case 5:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Opcio no trobada");
+                    break;
+            }
+        }
+    }
+
+    public static void productManagement() {
+        Scanner scanner = new Scanner(System.in);
+
+        boolean running = true;
+        while (running) {
+            System.out.println("Gestio de productes:");
+            System.out.println();
+            System.out.println("1. Afegir produte");
+            System.out.println("2. Eliminar producte");
+            System.out.println("3. Modificar preu");
+            System.out.println("4. Veure tots els productes");
+            System.out.println("5. Tornar enrere");
+
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    addProductUI();
+                    break;
+                case 2:
+                    deleteProductUI();
+                    break;
+                case 3:
+                    modifyPriceUI();
+                    break;
+                case 4:
+                    getProductsUI();
                     break;
                 case 5:
                     running = false;
