@@ -231,14 +231,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Dao<Product> productDao = new ProductDao();
 
-        System.out.print("Posa el ID del producte a afegir: ");
-        int id = scanner.nextInt();
         System.out.println("Posa el nombre del producte");
         String pName = scanner.next();
         System.out.print("Posa el preu del producte: ");
         double pPrice = scanner.nextDouble();
 
-        Product product = new Product(id, pName, pPrice);
+        Product product = new Product(0, pName, pPrice);
         //gestioProducts.addProduct(product);
 
         productDao.create(product);
@@ -287,25 +285,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Dao<Ticket> ticketDao = new TicketDao();
         Dao<Customer> customerDao = new CustomerDao();
+        Dao<Product> productDao = new ProductDao();
 
         ArrayList<Product> products = new ArrayList<>();
-        System.out.println("(TEMPORAL) Añade el precio total de la compra");
-        int totalPrice = scanner.nextInt();
 
         System.out.println("Introduce ID del cliente: ");
         int idCustomer = scanner.nextInt();
         Customer customer = customerDao.read(idCustomer);
 
-        if (Objects.isNull(customer)) {
-            System.out.println("El cliente no existe");
-        }
-
-
         System.out.println("Introduce ID del producto: ");
         int idProduct = scanner.nextInt();
+        Product product = productDao.read(idProduct);
 
+        if (customer.getCustomerId() == 0 || product.getProductId() == 0) {
+            System.out.println("El cliente o producto no existe.");
+            return;
+        }
 
-        Ticket ticket = new Ticket(0, idProduct, idCustomer);
+        Ticket ticket = new Ticket(0, product.getProductId(), customer.getCustomerId());
         ticketDao.create(ticket);
     }
     public static void deleteTicketByIdUI() {
